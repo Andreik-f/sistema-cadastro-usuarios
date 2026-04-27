@@ -24,29 +24,6 @@ public class Main {
                 System.out.println("Opção inválida!");
                 continue;
             }
-
-            switch (opcao){
-                case 1: {
-                    CadastroUsuarios obj = new CadastroUsuarios();
-                    obj.cadastro();
-                    break;
-                }
-                case 2:{
-                    ListaUsuarios obj = new ListaUsuarios();
-                    obj.listar();
-                    break;
-                }
-                case 3:{
-                    BuscaUsuarios obj = new BuscaUsuarios();
-                    obj.buscar();
-                    break;
-                }
-                case 4:{
-                    RemoverUsuarios obj = new RemoverUsuarios();
-                    obj.remover();
-                    break;
-                }
-            }
         }
 
 

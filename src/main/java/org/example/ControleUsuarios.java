@@ -1,9 +1,8 @@
 package org.example;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
-public class CadastroUsuarios {
+public class ControleUsuarios {
     static void cadastro (){
 
         Scanner sc = new Scanner(System.in);
@@ -20,9 +19,6 @@ public class CadastroUsuarios {
         if(idade < 0){
             System.out.println("Valor inválido!");
         }
-
-
-
     }
 }
 
