@@ -1,4 +1,5 @@
 package org.example;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -8,6 +9,8 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         int opcao = -1;
+
+        ArrayList<Usuarios> users = new ArrayList<>();
 
         while(opcao != 0){
 
@@ -24,7 +27,16 @@ public class Main {
                 System.out.println("Opção inválida!");
                 continue;
             }
+
+            switch (opcao){
+                case 1:
+                    ControleUsuarios.cadastro(users);
+                    break;
+                case 2:
+                    ControleUsuarios.listar(users);
+            }
         }
+
 
 
     }
