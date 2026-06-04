@@ -30,14 +30,18 @@ public class Main {
 
             switch (opcao){
                 case 1:
-                    ControleUsuarios.cadastro(users);
+                    ControleUsuarios.Cadastro(users);
                     break;
                 case 2:
-                    ControleUsuarios.listar(users);
+                    ControleUsuarios.Listar(users);
+                    break;
+                case 3 :
+                    ControleUsuarios.Buscar(users);
+                    break;
+                case 4:
+                    ControleUsuarios.Remover(users);
+                    break;
             }
         }
-
-
-
     }
 }
