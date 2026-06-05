@@ -51,8 +51,14 @@ public class ControleUsuarios {
 
     static void Listar(ArrayList<Usuarios> users){
 
-        for(Usuarios user: users)
-            System.out.println(user);
+        if(users.isEmpty()){
+            System.out.println("Nenhum usuário cadastrado!");
+        }else{
+            System.out.println("Usuários Cadastrados: ");
+
+            for(Usuarios user: users)
+                System.out.println(user);
+        }
     }
     static void Buscar(ArrayList<Usuarios> users){
 
