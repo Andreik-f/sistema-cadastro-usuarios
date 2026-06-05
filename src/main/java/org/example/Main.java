@@ -19,11 +19,12 @@ public class Main {
             System.out.println("1 - Cadastrar usuário");
             System.out.println("2 - Lista de Usuários");
             System.out.println("3 - Buscar Usuário");
-            System.out.println("4 - Remover Usuário");
+            System.out.println("4 - Editar Usuário");
+            System.out.println("5 - Remover Usuário");
             System.out.println("0 - Sair");
             opcao = sc.nextInt();
 
-            if (opcao < 0 || opcao > 4){
+            if (opcao < 0 || opcao > 5){
                 System.out.println("Opção inválida!");
                 continue;
             }
@@ -39,6 +40,9 @@ public class Main {
                     ControleUsuarios.Buscar(users);
                     break;
                 case 4:
+                    ControleUsuarios.Editar(users);
+                    break;
+                case 5:
                     ControleUsuarios.Remover(users);
                     break;
             }
