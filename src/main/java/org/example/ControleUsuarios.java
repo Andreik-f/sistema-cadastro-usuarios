@@ -3,15 +3,12 @@ package org.example;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
 public class ControleUsuarios {
 
-    static void Cadastro (ArrayList<Usuarios> users){
+    static void Cadastro (ArrayList<Usuarios> users, Scanner sc){
 
-        Scanner sc = new Scanner(System.in);
         String nome, email;
         int idade;
-        boolean emailExiste = false;
 
         System.out.println("Informe o nome: ");
         nome = sc.nextLine();
@@ -20,20 +17,11 @@ public class ControleUsuarios {
 
         // Verifica se email já existe
 
-        do {
-            emailExiste = false;
-
-            for (Usuarios usuario : users) {
-                if (usuario.email.equals(email)) {
-                    emailExiste = true;
-                    System.out.println("Email já cadastrado, informe outro!");
-                    System.out.print("Informe o e-mail: ");
-                    email = sc.nextLine();
-                    break;
-                }
-            }
-
-        } while (emailExiste);
+        while (EmailExiste(users, email)) {
+            System.out.println("Email já cadastrado, informe outro!");
+            System.out.print("Informe o e-mail: ");
+            email = sc.nextLine();
+        }
 
         System.out.println("Informe a idade:");
         idade = sc.nextInt();
@@ -43,6 +31,7 @@ public class ControleUsuarios {
             System.out.println("Informe a idade:");
             idade = sc.nextInt();
         }
+        sc.nextLine();
 
         Usuarios user = new Usuarios(nome, email, idade);
         users.add(user);
@@ -60,89 +49,82 @@ public class ControleUsuarios {
                 System.out.println(user);
         }
     }
-    static void Buscar(ArrayList<Usuarios> users){
+    static void Buscar(ArrayList<Usuarios> users, Scanner sc){
 
-        boolean achou = false;
-        Scanner sc = new Scanner(System.in);
         System.out.println("Informe o e-mail do usuário: ");
         String email = sc.nextLine();
 
         // Busca usuario pelo email
 
-        for(Usuarios user: users){
-            if(user.email.equals(email)){
-                achou = true;
-                System.out.println("Usuário encontrado! ");
-                System.out.println(user);
-            }
-        }
-        if(!achou)
+        Usuarios usuario = BuscarUsuario(users, email);
+
+        if(usuario == null){
             System.out.println("Usuário não encontrado!");
+        }else{
+            System.out.println("Usuário encontrado:");
+            System.out.println(usuario);
+        }
     }
-    static void Editar(ArrayList<Usuarios> users){
+    static void Editar(ArrayList<Usuarios> users, Scanner sc){
 
-        boolean achou = false;
-        boolean emailExiste = false;
-        Usuarios usuarioEncontrado = null;
-
-        Scanner sc = new Scanner(System.in);
         System.out.println("Informe o e-mail do usuário: ");
         String email = sc.nextLine();
 
-        // Localiza o usuário que será editado
-
-            for (Usuarios user : users) {
-                if (user.email.equals(email)) {
-                    achou = true;
-                    usuarioEncontrado = user;
-
-                    System.out.println("Usuário encontrado! ");
-                    System.out.println(user);
-
-                    System.out.println("Digite o novo email: ");
-                    email = sc.nextLine();
-                    break;
-                }
-            }
-        if(!achou) {
-            System.out.println("Usuário não encontrado!");
-            return;
-        }
+        Usuarios usuario = BuscarUsuario(users, email);
 
         // Verifica se o novo email já pertence a outro usuário
 
-        for(Usuarios user: users){
-            if(user != usuarioEncontrado && user.email.equals(email)) {
-                emailExiste = true;
+        if(usuario == null){
+            System.out.println("Usuário não encontrado!");
+        }else{
+            System.out.println("Usuário encontrado!");
+            System.out.println(usuario);
+            System.out.println("Digite o novo email: ");
+            String novoEmail = sc.nextLine();
+
+            Usuarios novoDono = BuscarUsuario(users, novoEmail); // Armazena o usuário com mesmo email ou null
+
+            if(novoDono != null && novoDono != usuario){
+                System.out.println("Email já existe!");
+            }else{
+                usuario.email = novoEmail;
+                System.out.println("Email alterado com sucesso!");
             }
         }
-        if(emailExiste){
-            System.out.println("Email já existe!");
-        }else{
-            usuarioEncontrado.email = email;
-            System.out.println("Email alterado com sucesso!");
-        }
-
     }
-    static void Remover(ArrayList<Usuarios> users){
+    static void Remover(ArrayList<Usuarios> users, Scanner sc){
 
-        boolean achou = false;
-        Scanner sc = new Scanner(System.in);
         System.out.println("Informe o email do usuário: ");
         String email = sc.nextLine();
+        Usuarios usuario = BuscarUsuario(users, email);
 
-        //Percorre a lista Usuarios por índice
+        //Verifica se o usuário existe utilizando a função
 
-        for(int i = 0; i < users.size(); i++){
-            if(users.get(i).email.equals(email)){
-                users.remove(i);
-                achou = true;
-                System.out.println("Usuário removido com sucesso!");
-                break;
+        if(usuario == null){
+            System.out.println("Usuário não encontrado!");
+        }else{
+            users.remove(usuario);
+            System.out.println("Usuário removido com sucesso!");
+        }
+    }
+
+    static boolean EmailExiste(ArrayList<Usuarios> users, String email){
+
+        for(Usuarios user: users){
+            if (user.email.equals(email)){
+                return true;
             }
         }
-        if(!achou)
-            System.out.println("Usuário não encontrado!");
+        return false;
+    }
+    static Usuarios BuscarUsuario(ArrayList<Usuarios> users, String email){
+
+        for(Usuarios user: users){
+            if(user.email.equals(email)){
+                return user;
+            }
+        }
+        return null;
     }
 }
 

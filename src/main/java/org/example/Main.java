@@ -23,29 +23,32 @@ public class Main {
             System.out.println("5 - Remover Usuário");
             System.out.println("0 - Sair");
             opcao = sc.nextInt();
-
-            if (opcao < 0 || opcao > 5){
-                System.out.println("Opção inválida!");
-                continue;
-            }
+            sc.nextLine();
 
             switch (opcao){
                 case 1:
-                    ControleUsuarios.Cadastro(users);
+                    ControleUsuarios.Cadastro(users, sc);
                     break;
                 case 2:
                     ControleUsuarios.Listar(users);
                     break;
                 case 3 :
-                    ControleUsuarios.Buscar(users);
+                    ControleUsuarios.Buscar(users, sc);
                     break;
                 case 4:
-                    ControleUsuarios.Editar(users);
+                    ControleUsuarios.Editar(users, sc);
                     break;
                 case 5:
-                    ControleUsuarios.Remover(users);
+                    ControleUsuarios.Remover(users, sc);
+                    break;
+                case 0:
+                    System.out.println("Encerrando sistema...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
                     break;
             }
         }
+        sc.close();
     }
 }
